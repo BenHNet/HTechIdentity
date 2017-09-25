@@ -45,6 +45,11 @@ namespace HTechIdentityServer
                 ClientSecret = "3gcoTrEDPPJ0ukn_aYYT6PWo"
             });
 
+            // Shows UseCors with CorsPolicyBuilder.
+            app.UseCors(builder =>
+               builder.WithOrigins("http://localhost")
+               .AllowAnyHeader());
+
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
         }
