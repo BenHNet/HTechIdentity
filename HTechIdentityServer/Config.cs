@@ -25,7 +25,7 @@ namespace HTechIdentityServer
         {
             return new List<ApiResource>
             {
-                new ApiResource("api1", "My API")
+                new ApiResource("sample_api", "htech_api")
             };
         }
 
@@ -37,39 +37,39 @@ namespace HTechIdentityServer
             {
                 new Client
                 {
-                    ClientId = "client",
+                    ClientId = "sample_client",
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
 
                     ClientSecrets =
                     {
-                        new Secret("secret".Sha256())
+                        new Secret("sample_9TKTb5Th4LpP".Sha256())
                     },
-                    AllowedScopes = { "api1" }
+                    AllowedScopes = { "sample_api" }
                 },
 
                 // resource owner password grant client
                 new Client
                 {
-                    ClientId = "ro.client",
+                    ClientId = "sample_username_client",
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
 
                     ClientSecrets =
                     {
-                        new Secret("secret".Sha256())
+                        new Secret("sample_9TKTb5Th4LpP".Sha256())
                     },
-                    AllowedScopes = { "api1" }
+                    AllowedScopes = { "sample_api" }
                 },
 
                 // OpenID Connect hybrid flow and client credentials client (MVC)
                 new Client
                 {
-                    ClientId = "mvc",
-                    ClientName = "MVC Client",
+                    ClientId = "sample_mvc",
+                    ClientName = "Sample MVC Client",
                     AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
 
                     ClientSecrets = 
                     {
-                        new Secret("secret".Sha256())
+                        new Secret("sample_9TKTb5Th4LpP".Sha256())
                     },
 
                     RedirectUris = { "http://localhost:5002/signin-oidc" },
@@ -79,7 +79,7 @@ namespace HTechIdentityServer
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "api1"
+                        "sample_api"
                     },
                     AllowOfflineAccess = true
                 }
