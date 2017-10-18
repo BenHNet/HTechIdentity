@@ -47,8 +47,10 @@ namespace HTechIdentityServer
 
             // Shows UseCors with CorsPolicyBuilder.
             app.UseCors(builder =>
-               builder.WithOrigins("http://localhost")
+               builder.WithOrigins("http://localhost:60698", "http://localhost:4200", "http://localhost:3000")
                .AllowAnyHeader());
+
+            loggerFactory.AddConsole(LogLevel.Trace);
 
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();
