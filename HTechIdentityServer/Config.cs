@@ -25,7 +25,9 @@ namespace HTechIdentityServer
         {
             return new List<ApiResource>
             {
-                new ApiResource("sample_api", "htech_api")
+                new ApiResource("sample_api", "Sample API"),
+                new ApiResource("htech_api", "HTech API"),
+                new ApiResource("api1", "api1")
             };
         }
 
@@ -44,7 +46,13 @@ namespace HTechIdentityServer
                     {
                         new Secret("sample_9TKTb5Th4LpP".Sha256())
                     },
-                    AllowedScopes = { "sample_api" }
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        "sample_api"
+                    }
                 },
 
                 // resource owner password grant client
@@ -57,7 +65,13 @@ namespace HTechIdentityServer
                     {
                         new Secret("sample_9TKTb5Th4LpP".Sha256())
                     },
-                    AllowedScopes = { "sample_api" }
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        "sample_api"
+                    }
                 },
 
                 // OpenID Connect hybrid flow and client credentials client (MVC)
@@ -67,7 +81,7 @@ namespace HTechIdentityServer
                     ClientName = "Sample MVC Client",
                     AllowedGrantTypes = GrantTypes.HybridAndClientCredentials,
 
-                    ClientSecrets = 
+                    ClientSecrets =
                     {
                         new Secret("sample_9TKTb5Th4LpP".Sha256())
                     },
@@ -75,13 +89,58 @@ namespace HTechIdentityServer
                     RedirectUris = { "http://localhost:5002/signin-oidc" },
                     PostLogoutRedirectUris = { "http://localhost:5002/signout-callback-oidc" },
 
-                    AllowedScopes = 
+                    AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
                         "sample_api"
                     },
                     AllowOfflineAccess = true
+                },
+                                
+                // JavaScript Client
+                new Client
+                {
+                    ClientId = "sample_js",
+                    ClientName = "JavaScript Client",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+
+                    RedirectUris = { "http://localhost:5003/callback.html" },
+                    PostLogoutRedirectUris = { "http://localhost:5003/index.html" },
+                    AllowedCorsOrigins = { "http://localhost:5003" },
+
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        "sample_api",
+                        "api1"
+                    },
+                },
+                
+                // JavaScript Client
+                new Client
+                {
+                    ClientId = "sample_js_1",
+                    ClientName = "JavaScript Client",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+
+                    RedirectUris = { "http://localhost:4200/auth.html" },
+                    PostLogoutRedirectUris = { "http://localhost:4200/" },
+                    AllowedCorsOrigins = { "http://localhost:4200" },
+
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        "sample_api",
+                        "api1"
+                    },
                 }
             };
         }
