@@ -27,7 +27,8 @@ namespace HTechIdentityServer
             {
                 new ApiResource("sample_api", "Sample API"),
                 new ApiResource("htech_api", "HTech API"),
-                new ApiResource("api1", "api1")
+                new ApiResource("api1", "api1"),
+                new ApiResource("tour_of_heroes_api", "Tour of Heroes API")
             };
         }
 
@@ -128,6 +129,7 @@ namespace HTechIdentityServer
                     ClientName = "JavaScript Client",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
+                    
 
                     RedirectUris = { "http://localhost:4200/auth.html" },
                     PostLogoutRedirectUris = { "http://localhost:4200/" },
@@ -140,6 +142,27 @@ namespace HTechIdentityServer
                         IdentityServerConstants.StandardScopes.Email,
                         "sample_api",
                         "api1"
+                    },
+                },
+                
+                // JavaScript Client
+                new Client
+                {
+                    ClientId = "tour_of_heroes_js",
+                    ClientName = "JavaScript Client",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+
+                    RedirectUris = { "http://localhost:3000/callback.html" },
+                    PostLogoutRedirectUris = { "http://localhost:3000/index.html" },
+                    AllowedCorsOrigins = { "http://localhost:3000" },
+
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        "tour_of_heroes_api"
                     },
                 }
             };
