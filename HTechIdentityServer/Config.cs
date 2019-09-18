@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
+
 using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Test;
@@ -9,9 +10,13 @@ using System.Security.Claims;
 
 namespace HTechIdentityServer
 {
-    public class Config
+    public static class Config
     {
-        // scopes define the resources in your system
+        public static List<TestUser> GetUsers()
+        {
+            return HTechIdentity.HTechUsers.Users;
+        }
+
         public static IEnumerable<IdentityResource> GetIdentityResources()
         {
             return new List<IdentityResource>
@@ -21,7 +26,7 @@ namespace HTechIdentityServer
             };
         }
 
-        public static IEnumerable<ApiResource> GetApiResources()
+        public static IEnumerable<ApiResource> GetApis()
         {
             return new List<ApiResource>
             {
@@ -32,21 +37,24 @@ namespace HTechIdentityServer
             };
         }
 
-        // clients want to access resources (aka scopes)
         public static IEnumerable<Client> GetClients()
         {
-            // client credentials client
             return new List<Client>
             {
                 new Client
                 {
                     ClientId = "sample_client",
+
+                    // no interactive user, use the clientid/secret for authentication
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
 
-                    ClientSecrets =
+                    // secret for authentication
+                     ClientSecrets =
                     {
                         new Secret("sample_9TKTb5Th4LpP".Sha256())
                     },
+
+                    // scopes that client has access to
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
@@ -75,7 +83,7 @@ namespace HTechIdentityServer
                     }
                 },
 
-                // OpenID Connect hybrid flow and client credentials client (MVC)
+                // OpenID Connect hybrid flow client (MVC)
                 new Client
                 {
                     ClientId = "sample_mvc",
@@ -99,7 +107,7 @@ namespace HTechIdentityServer
                     },
                     AllowOfflineAccess = true
                 },
-                                
+
                 // JavaScript Client
                 new Client
                 {
@@ -129,7 +137,7 @@ namespace HTechIdentityServer
                     ClientName = "JavaScript Client",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
-                    
+
 
                     RedirectUris = { "http://localhost:4200/auth.html" },
                     PostLogoutRedirectUris = { "http://localhost:4200/" },
@@ -166,11 +174,6 @@ namespace HTechIdentityServer
                     },
                 }
             };
-        }
-
-        public static List<TestUser> GetUsers()
-        {
-            return HTechIdentity.HTechUsers.Users;
         }
     }
 }
